@@ -8,8 +8,7 @@ public class Person {
     private Byte age;
     private Gender gender;
 
-    public Person(Long id, String name, Byte age, Gender gender) {
-        this.id = id;
+    public Person(String name, Byte age, Gender gender) {
         this.name = name;
         this.age = age;
         this.gender = gender;

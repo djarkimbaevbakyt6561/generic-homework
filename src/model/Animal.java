@@ -8,8 +8,7 @@ public class Animal {
     private Byte age;
     private Gender gender;
 
-    public Animal(Long id, String name, Byte age, Gender gender) {
-        this.id = id;
+    public Animal(String name, Byte age, Gender gender) {
         this.name = name;
         this.age = age;
         this.gender = gender;
