@@ -1,9 +1,8 @@
-package service;
+package java12.dao;
 
 import java.util.List;
 
-public interface GenericService<T> {
-
+public interface GeneralDao<T> {
     Boolean add(T t);
     T getById(Long id);
     List<T> getAll();

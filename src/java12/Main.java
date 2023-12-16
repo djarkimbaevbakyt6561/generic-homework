@@ -1,15 +1,23 @@
-import enums.Gender;
-import model.Animal;
-import model.Person;
+package java12;
 
-import service.impl.AnimalServiceImpl;
-import service.impl.PersonServiceImpl;
+import java12.dao.impl.AnimalDaoImpl;
+import java12.dao.impl.PersonDaoImpl;
+import java12.db.Database;
+import java12.enums.Gender;
+import java12.model.Animal;
+import java12.model.Person;
+
+import java12.service.impl.AnimalServiceImpl;
+import java12.service.impl.PersonServiceImpl;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Database database = new Database();
+        AnimalDaoImpl animalDao = new AnimalDaoImpl(database);
+        PersonDaoImpl personDao = new PersonDaoImpl(database);
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Выберите: 1 (Животное) / 2 (Человек)");
@@ -17,7 +25,7 @@ public class Main {
             boolean exit = false;
 
             if (num.equals("1")) {
-                AnimalServiceImpl animalService = new AnimalServiceImpl();
+                AnimalServiceImpl animalService = new AnimalServiceImpl(animalDao);
                 while (!exit) {
                     System.out.println("""
                             1.Добавить животного
@@ -143,7 +151,7 @@ public class Main {
                 }
                 break;
             } else if (num.equals("2")) {
-                PersonServiceImpl personService = new PersonServiceImpl();
+                PersonServiceImpl personService = new PersonServiceImpl(personDao);
                 while (!exit) {
                     System.out.println("""
                             1.Добавить человека

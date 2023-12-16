@@ -1,24 +1,29 @@
-package service.impl;
+package java12.dao.impl;
 
-import enums.Gender;
-import model.Animal;
-import service.GenericService;
+import java12.dao.GeneralDao;
+import java12.db.Database;
+import java12.enums.Gender;
+import java12.model.Animal;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class AnimalServiceImpl implements GenericService<Animal> {
-    List<Animal> animals = new ArrayList<>();
+public class AnimalDaoImpl implements GeneralDao<Animal> {
+    private final Database database;
+
+    public AnimalDaoImpl(Database database) {
+        this.database = database;
+    }
 
     @Override
     public Boolean add(Animal animal) {
-        return animals.add(animal);
+        return database.getAnimals().add(animal);
     }
 
     @Override
     public Animal getById(Long id) {
-        for (Animal animal : animals) {
+        for (Animal animal : database.getAnimals()) {
             if (animal.getId().equals(id)) {
                 return animal;
             }
@@ -28,44 +33,44 @@ public class AnimalServiceImpl implements GenericService<Animal> {
 
     @Override
     public List<Animal> getAll() {
-        return animals;
+        return database.getAnimals();
     }
 
     @Override
     public List<Animal> sortByName(Integer type) {
         if (type == 1) {
-            animals.sort(Comparator.comparing(Animal::getName));
+            database.getAnimals().sort(Comparator.comparing(Animal::getName));
         } else if (type == 2) {
-            animals.sort(Comparator.comparing(Animal::getName).reversed());
+            database.getAnimals().sort(Comparator.comparing(Animal::getName).reversed());
         } else {
             return null;
         }
-        return animals;
+        return database.getAnimals();
     }
 
     @Override
     public List<Animal> sortByAge(Integer type) {
         if (type == 1) {
-            animals.sort(Comparator.comparing(Animal::getAge));
+            database.getAnimals().sort(Comparator.comparing(Animal::getAge));
         } else if (type == 2) {
-            animals.sort(Comparator.comparing(Animal::getAge).reversed());
+            database.getAnimals().sort(Comparator.comparing(Animal::getAge).reversed());
         } else {
             return null;
         }
-        return animals;
+        return database.getAnimals();
     }
 
     @Override
     public List<Animal> filterByGender(Integer type) {
         List<Animal> newAnimalList = new ArrayList<>();
         if (type == 1) {
-            for (Animal animal : animals) {
+            for (Animal animal : database.getAnimals()) {
                 if (animal.getGender().equals(Gender.FEMALE)) {
                     newAnimalList.add(animal);
                 }
             }
         } else if (type == 2) {
-            for (Animal animal : animals) {
+            for (Animal animal : database.getAnimals()) {
                 if (animal.getGender().equals(Gender.MALE)) {
                     newAnimalList.add(animal);
                 }
@@ -78,6 +83,6 @@ public class AnimalServiceImpl implements GenericService<Animal> {
 
     @Override
     public void clear() {
-        animals.clear();
+        database.getAnimals().clear();
     }
 }

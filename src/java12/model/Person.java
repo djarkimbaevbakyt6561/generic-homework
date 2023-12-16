@@ -1,6 +1,6 @@
-package model;
+package java12.model;
 
-import enums.Gender;
+import java12.enums.Gender;
 
 public class Person {
     private Long id;
